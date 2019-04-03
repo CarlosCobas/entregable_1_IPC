@@ -10,26 +10,36 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 
 /**
+ * FXML Controller class
  *
- * @author Jon-Snow
+ * @author mario
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
-    private Label label;
-    
+    private Button patient_button;
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    private Button doctor_button;
+    @FXML
+    private Button appointment_button;
+    @FXML
+    private Button add_button;
+    @FXML
+    private Button delete_button;
+    @FXML
+    private Button show_button;
+    @FXML
+    private Button exit_button;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }       
     
 }

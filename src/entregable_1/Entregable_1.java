@@ -25,6 +25,7 @@ public class Entregable_1 extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
     }
 
     /**
