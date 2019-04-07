@@ -13,19 +13,17 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Jon-Snow
+ * @author Carlos Cobas
  */
 public class Entregable_1 extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
+        stage.setTitle("Base de Datos Clínica");
         stage.show();
-        
     }
 
     /**
