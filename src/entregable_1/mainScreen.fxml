@@ -48,7 +48,7 @@
             <Button fx:id="exit_button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Salir" />
          </children>
       </HBox>
-      <ListView prefHeight="347.0" prefWidth="476.0" GridPane.rowIndex="1">
+      <ListView id="info_view" prefHeight="240.0" prefWidth="498.0" GridPane.rowIndex="1">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
