@@ -1,54 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entregable_1.MainScreenController">
-   <top>
-      <HBox alignment="CENTER" prefHeight="41.0" prefWidth="510.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="patient_button" mnemonicParsing="false" onMouseClicked="#getPacientsList" prefHeight="25.0" prefWidth="67.0" text="Pacientes" />
-            <Button fx:id="doctor_button" mnemonicParsing="false" onMouseClicked="#getDoctorsList" prefHeight="25.0" prefWidth="67.0" text="Doctores" />
-            <Button fx:id="appointment_button" mnemonicParsing="false" onMouseClicked="#getAppointmentsList" prefHeight="25.0" prefWidth="67.0" text="Citas" />
-         </children>
-      </HBox>
-   </top>
-   <right>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="add_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Añadir" />
-            <Button fx:id="delete_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Eliminar" />
-            <Button fx:id="show_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Visualizar" />
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-   </right>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="exit_button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Salir" />
-         </children>
-      </HBox>
-   </bottom>
-   <center>
-      <ListView id="info_view" fx:id="info_view" prefHeight="240.0" prefWidth="498.0" BorderPane.alignment="CENTER">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </ListView>
-   </center>
-   <left>
-      <VBox prefHeight="200.0" prefWidth="20.0" BorderPane.alignment="CENTER">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-   </left>
-</BorderPane>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entregable_1.MainScreen_v2Controller">
+  <tabs>
+    <Tab fx:id="pacients_tab" text="Pacientes">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <right>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="patients_add" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Añadir" />
+                              <Button fx:id="patients_delete" layoutX="15.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Eliminar" />
+                              <Button fx:id="patients_show" layoutX="15.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Visualizar" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </right>
+               <center>
+                  <ListView fx:id="patients_info_view" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </content>
+    </Tab>
+    <Tab fx:id="doctors_tab" text="Doctores">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <right>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="doctors_add" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Añadir" />
+                              <Button fx:id="doctors_delete" layoutX="15.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Eliminar" />
+                              <Button fx:id="doctors_show" layoutX="15.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Visualizar" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </right>
+               <center>
+                  <ListView fx:id="doctors_info_view" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </content>
+    </Tab>
+      <Tab fx:id="appointments_tab" text="Citas">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <right>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="appointments_add" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Añadir" />
+                              <Button fx:id="appointments_delete" layoutX="15.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Eliminar" />
+                              <Button fx:id="appointments_show" layoutX="15.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Visualizar" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </right>
+               <center>
+                  <ListView fx:id="appointments_info_view" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>

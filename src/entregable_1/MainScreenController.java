@@ -11,22 +11,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.Appointment;
 import model.Doctor;
 import model.Patient;
@@ -40,29 +45,45 @@ import model.Person;
 public class MainScreenController implements Initializable {
 
     @FXML
-    private Button patient_button;
+    private Tab pacients_tab;
     @FXML
-    private Button doctor_button;
+    private Tab doctors_tab;
     @FXML
-    private Button appointment_button;
-    @FXML
-    private Button add_button;
-    @FXML
-    private Button delete_button;
-    @FXML
-    private Button show_button;
-    @FXML
-    private Button exit_button;
-    @FXML
-    private ListView<String> info_view;
+    private Tab appointments_tab;
     
+    @FXML
+    private ListView<String> patients_info_view;
+    @FXML
+    private ListView<String> doctors_info_view;
+    @FXML
+    private ListView<String> appointments_info_view;
+
+    @FXML
+    private Button patients_add;
+    @FXML
+    private Button patients_delete;
+    @FXML
+    private Button patients_show;
+    @FXML
+    private Button doctors_add;
+    @FXML
+    private Button doctors_delete;
+    @FXML
+    private Button doctors_show;
+    @FXML
+    private Button appointments_add;
+    @FXML
+    private Button appointments_delete;
+    @FXML
+    private Button appointments_show;
     
     private ClinicDBAccess db;
     private ObservableList<Patient> patientsObservableList;
     private ObservableList<Doctor> doctorsObservableList;
     private ObservableList<Appointment> appointmentsObservableList;
-    private int tabCode;
-
+    
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -72,100 +93,70 @@ public class MainScreenController implements Initializable {
         patientsObservableList = FXCollections.observableList(db.getPatients());
         doctorsObservableList = FXCollections.observableList(db.getDoctors());
         appointmentsObservableList = FXCollections.observableList(db.getAppointments());
-       
-        delete_button.disableProperty().bind(Bindings.equal(-1, info_view.getSelectionModel().selectedIndexProperty()));
-        show_button.disableProperty().bind(Bindings.equal(-1, info_view.getSelectionModel().selectedIndexProperty())); 
         
-        getPacientsList();
-        
-        add_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                addBttn(tabCode);
-            }
-        });
-        
-        delete_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                deleteBttn(tabCode);
-            }
-        });
+        initData();
+        initButtons();
+    }    
+    
+    
+    private void initData() {
+        setPacientsList();
+        setDoctorsList();
+        setAppointmentsList();
     }
     
-    @FXML
-    public void getPacientsList() {
-        tabCode = 0;
-        info_view.setItems(getStringList(patientsObservableList));
-    }
-    @FXML
-    public void getDoctorsList() {
-        tabCode = 1;
-        info_view.setItems(getStringList(doctorsObservableList));
-    }
-    @FXML
-    public void getAppointmentsList() {
-        tabCode = 2;
-        info_view.setItems(getStringList(appointmentsObservableList));
-    }
-    
-    public void addBttn(int code) {
-        switch(code) {
-            case 0:
-                openAddPatient();
-                break;
-            case 1:
-                
-                break;
-            case 2:
-                
-                break;
-        }
+    private void initButtons() {
+        //Patient List Buttons
+        
+        patients_delete.disableProperty().bind(Bindings.equal(-1, 
+                patients_info_view.getSelectionModel().selectedIndexProperty()));
+        patients_show.disableProperty().bind(Bindings.equal(-1, 
+                patients_info_view.getSelectionModel().selectedIndexProperty()));
+        patients_add.setOnAction((ActionEvent event) -> { openAddPatient(); });
+        
+        //Doctor List Buttons
+        doctors_delete.disableProperty().bind(Bindings.equal(-1, 
+                doctors_info_view.getSelectionModel().selectedIndexProperty()));
+        doctors_show.disableProperty().bind(Bindings.equal(-1, 
+                doctors_info_view.getSelectionModel().selectedIndexProperty()));
+        
+        
+        //Appointment List Buttons
+        appointments_delete.disableProperty().bind(Bindings.equal(-1, 
+                appointments_info_view.getSelectionModel().selectedIndexProperty()));
+        appointments_show.disableProperty().bind(Bindings.equal(-1, 
+                appointments_info_view.getSelectionModel().selectedIndexProperty()));
+        
+        
     }
     
-    public void deleteBttn(int code) {
-        switch(code) {
-            case 0:
-                removePatient();
-                break;
-            case 1:
-                removePatient();
-                break;
-            case 2:
-                removePatient();
-                break;
-        }
+    public void setPacientsList() {
+        patients_info_view.setItems(getStringList(patientsObservableList));
     }
-//    
-//    public void viewBttn(int code) {
-//    
-//        switch(code) {
-//            case 0:
-//                openViewPatient();
-//                break;
-//            case 1:
-//                openViewDoctor();
-//                break;
-//            case 2:
-//                openViewAppointment();
-//                break;
-//        }
-//    }
+    public void setDoctorsList() {
+        doctors_info_view.setItems(getStringList(doctorsObservableList));
+    }
+    public void setAppointmentsList() {
+        appointments_info_view.setItems(getStringList(appointmentsObservableList));
+    }
     
     private ObservableList<String> getStringList (ObservableList<?> list) {
-        ArrayList<String> stringList = new ArrayList<String>();
+        ArrayList<String> stringList = new ArrayList<>();
         
         if(list.get(0) instanceof Person) {
             for(int i = 0; i < list.size(); i++) {
                 Person person = (Person)list.get(i);
-                String fullName = person.getSurname() + ", " + person.getName()+ "\t\t" + person.getIdentifier();
+                String fullName = person.getSurname() + ", " + person.getName()
+                        + "\t\t" + person.getIdentifier();
                 stringList.add(fullName);
             }
         }
         else if(list.get(0) instanceof Appointment) {
             for(int i = 0; i < list.size(); i++) {
                 Appointment appointment = (Appointment)list.get(i);
-                String fullName = appointment.getAppointmentDateTime() + "\t\t" + appointment.getDoctor().getName() + "\t\t" + appointment.getPatient().getName();
+                String fullName = appointment.getAppointmentDateTime() 
+                        + "\t\t" + appointment.getDoctor().getName() + "\t\t" 
+                        + appointment.getPatient().getName();
                 stringList.add(fullName);
             }
         }
@@ -173,7 +164,6 @@ public class MainScreenController implements Initializable {
         ObservableList<String> res = FXCollections.observableList(stringList);
         return res;
     }
-    
     
     private void openAddPatient() {
         try{
@@ -196,7 +186,7 @@ public class MainScreenController implements Initializable {
     }
 
     private void removePatient() {
-        int index = info_view.getSelectionModel().getSelectedIndex();
+        int index = patients_info_view.getSelectionModel().getSelectedIndex();
         patientsObservableList.remove(index);
     }
 }
