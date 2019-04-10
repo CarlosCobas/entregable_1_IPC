@@ -11,13 +11,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,13 +22,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.Appointment;
 import model.Doctor;
 import model.Patient;
@@ -96,13 +89,26 @@ public class MainScreenController implements Initializable {
         
         initData();
         initButtons();
+        
+       
     }    
     
     
     private void initData() {
+        
         setPacientsList();
         setDoctorsList();
         setAppointmentsList();
+        
+        patientsObservableList.addListener( (ListChangeListener<Patient>) c -> {
+            setPacientsList();
+        });
+        doctorsObservableList.addListener( (ListChangeListener<Doctor>) c -> {
+            setDoctorsList();
+        });
+        appointmentsObservableList.addListener( (ListChangeListener<Appointment>) c -> {
+            setAppointmentsList();
+        });
     }
     
     private void initButtons() {
@@ -113,6 +119,7 @@ public class MainScreenController implements Initializable {
         patients_show.disableProperty().bind(Bindings.equal(-1, 
                 patients_info_view.getSelectionModel().selectedIndexProperty()));
         patients_add.setOnAction((ActionEvent event) -> { openAddPatient(); });
+        patients_delete.setOnAction((ActionEvent event) -> { removePatient(); });
         
         //Doctor List Buttons
         doctors_delete.disableProperty().bind(Bindings.equal(-1, 
@@ -133,9 +140,11 @@ public class MainScreenController implements Initializable {
     public void setPacientsList() {
         patients_info_view.setItems(getStringList(patientsObservableList));
     }
+    
     public void setDoctorsList() {
         doctors_info_view.setItems(getStringList(doctorsObservableList));
     }
+    
     public void setAppointmentsList() {
         appointments_info_view.setItems(getStringList(appointmentsObservableList));
     }
@@ -187,6 +196,10 @@ public class MainScreenController implements Initializable {
 
     private void removePatient() {
         int index = patients_info_view.getSelectionModel().getSelectedIndex();
+        System.out.println(index);
         patientsObservableList.remove(index);
+        System.out.println(patientsObservableList.size());
     }
+    
+    
 }
