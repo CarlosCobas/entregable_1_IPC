@@ -36,7 +36,6 @@ import model.Patient;
  */
 public class AddFromController implements Initializable {
 
-    @FXML
     private Button createPatient;
     @FXML
     private Button cancelPatientCreation;
@@ -51,6 +50,18 @@ public class AddFromController implements Initializable {
     
     private ClinicDBAccess db;
     private ObservableList<Patient> patientsObservableList;
+    @FXML
+    private Button createDoctor;
+    @FXML
+    private TextField photo;
+    @FXML
+    private TextField visitDays;
+    @FXML
+    private TextField visitStartTime;
+    @FXML
+    private TextField visitEndTime;
+    @FXML
+    private TextField examinationRoom;
 
     /**
      * Initializes the controller class.
