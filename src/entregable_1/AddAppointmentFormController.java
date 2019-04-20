@@ -229,67 +229,72 @@ public class AddAppointmentFormController implements Initializable {
                 @Override
                 public void updateItem(LocalDate item, boolean empty) {
                     super.updateItem(item, empty);
-                    WeekFields weekFields = WeekFields.ISO;
-                    int dayOfWeek = item.getDayOfWeek().getValue();
-                    int weekNumber = item.get(weekFields.weekBasedYear());
-                    ArrayList<SlotWeek> appointmentsWeek = 
-                            SlotAppointmentsWeek.getAppointmentsWeek(
-                                    weekNumber, visitDays, startTime, 
-                                    endTime, doctorAppointments);
-                    boolean isAvailable = false;
-                    
-                    switch(dayOfWeek){
-                        case(1):
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getMondayAvailability()
-                                        .equals("Free");
-                            }
-                            break;
-                        case(2):
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getTuesdayAvailability()
-                                        .equals("Free");
-                            }
-                            break;
-                        case(3):
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getWednesdayAvailability()
-                                        .equals("Free");
-                            }
-                            break;
-                        case(4):
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getThursdayAvailability()
-                                        .equals("Free");
-                            }
-                            break;  
-                        case(5):
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getFridayAvailability()
-                                        .equals("Free");
-                            }
-                            break;
-                        case(6):
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getSaturdayAvailability()
-                                        .equals("Free");
-                            }
-                            break;
-                        default:
-                            for(SlotWeek slot : appointmentsWeek) {
-                                isAvailable = isAvailable || 
-                                        slot.getSundayAvailability().equals("Free");
-                            }
-                            break;
+                    LocalDate now = LocalDate.now();
+                    if(now.compareTo(item) < 0) {
+                        WeekFields weekFields = WeekFields.ISO;
+                        int dayOfWeek = item.getDayOfWeek().getValue();
+                        int weekNumber = item.get(weekFields.weekBasedYear());
+                        ArrayList<SlotWeek> appointmentsWeek = 
+                                SlotAppointmentsWeek.getAppointmentsWeek(
+                                        weekNumber, visitDays, startTime, 
+                                        endTime, doctorAppointments);
+                        boolean isAvailable = false;
+
+                        switch(dayOfWeek){
+                            case(1):
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getMondayAvailability()
+                                            .equals("Free");
+                                }
+                                break;
+                            case(2):
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getTuesdayAvailability()
+                                            .equals("Free");
+                                }
+                                break;
+                            case(3):
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getWednesdayAvailability()
+                                            .equals("Free");
+                                }
+                                break;
+                            case(4):
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getThursdayAvailability()
+                                            .equals("Free");
+                                }
+                                break;  
+                            case(5):
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getFridayAvailability()
+                                            .equals("Free");
+                                }
+                                break;
+                            case(6):
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getSaturdayAvailability()
+                                            .equals("Free");
+                                }
+                                break;
+                            default:
+                                for(SlotWeek slot : appointmentsWeek) {
+                                    isAvailable = isAvailable || 
+                                            slot.getSundayAvailability().equals("Free");
+                                }
+                                break;
+                        }
+
+                        setDisable(!isAvailable);
+                    } else {
+                        setDisable(true);
                     }
-                    
-                    setDisable(!isAvailable);      
                 }
             }
         );
