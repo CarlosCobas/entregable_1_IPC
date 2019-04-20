@@ -4,8 +4,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entregable_1.MainScreenController">
@@ -31,6 +33,19 @@
                <center>
                   <ListView fx:id="patients_info_view" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
+               <top>
+                  <HBox maxHeight="40.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER_RIGHT">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="patientSearchText" layoutX="375.0" layoutY="8.0" promptText="Buscar paciente" />
+                              <Button fx:id="patientSearchButton" layoutX="535.0" layoutY="8.0" mnemonicParsing="false" text="Buscar" />
+                              <Button fx:id="patientClearSearch" disable="true" layoutX="280.0" layoutY="8.0" mnemonicParsing="false" text="Limpiar Filtro" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </top>
             </BorderPane>
          </content>
     </Tab>
@@ -55,6 +70,19 @@
                <center>
                   <ListView fx:id="doctors_info_view" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
+               <top>
+                  <HBox maxHeight="40.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="doctorSearchText" layoutX="375.0" layoutY="8.0" promptText="Buscar doctor" />
+                              <Button fx:id="doctorSearchButton" layoutX="535.0" layoutY="8.0" mnemonicParsing="false" text="Buscar" />
+                              <Button fx:id="doctorsClearSearch" disable="true" layoutX="283.0" layoutY="8.0" mnemonicParsing="false" text="Limpiar Filtro" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </top>
             </BorderPane>
          </content>
     </Tab>
@@ -79,6 +107,19 @@
                <center>
                   <ListView fx:id="appointments_info_view" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
+               <top>
+                  <HBox maxHeight="40.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="appointmentSearchText" layoutX="375.0" layoutY="8.0" promptText="Buscar cita" />
+                              <Button fx:id="appointmentSearchButton" layoutX="535.0" layoutY="8.0" mnemonicParsing="false" text="Buscar" />
+                              <Button fx:id="appointmentClearSearch" disable="true" layoutX="283.0" layoutY="8.0" mnemonicParsing="false" text="Limpiar Filtro" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </top>
             </BorderPane>
          </content>
       </Tab>
